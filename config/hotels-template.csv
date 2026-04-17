@@ -1,0 +1,22 @@
+# 批量酒店列表模板
+# 使用方法：复制此文件为 hotels.csv，填写所有酒店信息，一键批量生成
+
+# 格式说明：name,slug,brand,is_delonix,city,address,phone,booking_url
+# 说明：
+#   - name: 酒店名称
+#   - slug: 英文唯一标识
+#   - brand: 品牌（开元名都/开元名庭/曼居/其他）
+#   - is_delonix: true(德胧)/false(非德胧)
+#   - city: 城市
+#   - address: 地址
+#   - phone: 电话
+#   - booking_url: 预订链接
+
+# 德胧酒店示例
+天津瑞湾开元名都,tianjin-riwan,开元名都,true,天津,天津市滨海新区响螺湾迎宾大道1号,022-6625-8888,https://bidawu.com/hotel/tianjin-riwan
+杭州开元名都大酒店,hangzhou-nodica,开元名都,true,杭州,杭州市萧山区市心中路818号,0571-8288-8888,https://bidawu.com/hotel/hangzhou-nodica
+上海松江开元名都,shanghai-songjiang,开元名都,true,上海,上海市松江区广富林路658号,021-5778-8888,https://bidawu.com/hotel/shanghai-songjiang
+
+# 非德胧酒店示例（会引导到官网）
+北京中国大饭店,beijing-ccgrand,五星级,false,北京,北京市朝阳区建国门外大街1号,010-6505-2266,https://www.ccgrand.com/book
+上海外滩华尔道夫,shanghai-waldorf,五星级,false,上海,上海市黄浦区中山东一路2号,021-6322-9988,https://www.waldorfastoria.com.cn
