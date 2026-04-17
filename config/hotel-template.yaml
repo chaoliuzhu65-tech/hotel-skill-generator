@@ -1,0 +1,72 @@
+# 酒店配置模板
+# 使用方法：复制此文件并重命名为 {hotel-slug}.yaml，然后填写酒店信息
+
+hotel:
+  # 基础信息
+  name: "酒店名称"
+  slug: "hotel-slug"  # 英文唯一标识，用于URL和文件名
+  brand: "品牌名称"
+  star: "五星级"  # 如：五星级、四星级、三星级
+  
+  # 地址信息
+  address: "完整地址"
+  city: "城市"
+  district: "区县"  # 可选
+  
+  # 联系方式
+  phone: "电话"
+  email: "邮箱"  # 可选
+  
+  # 运营信息
+  open_date: "开业年份"  # 如：2019
+  website: "官网"  # 可选
+
+# 预订配置（重要）
+booking:
+  # 德胧酒店设为 true，非德胧酒店设为 false
+  is_delonix: true
+  
+  # 德胧酒店（is_delonix: true）
+  # 使用百达屋App作为核心预订出口
+  if is_delonix:
+    booking_app: "百达屋"
+    booking_url: "https://bidawu.com/hotel/{slug}"
+    app_download_url: "https://bidawu.com/download"
+  
+  # 非德胧酒店（is_delonix: false）
+  # 使用酒店官网作为主要预订出口
+  else:
+    booking_app: "官网"
+    booking_url: "https://hotel-official-website.com/book"
+    official_website: "https://hotel-official-website.com"
+
+# 特色服务（用于Skill展示）
+services:
+  - "客房服务"
+  - "餐饮美食"
+  - "会议宴会"
+  - "健身休闲"
+  # 添加更多特色服务
+
+# 触发词（用户会怎么搜索这个酒店）
+triggers:
+  - "{酒店名称}"
+  - "{城市}{品牌}"
+  - "{酒店名称简称}"
+  # 添加更多触发词
+
+# 问答内容（Q&A）
+faq:
+  - question: "酒店地址在哪？"
+    answer: "{回答}"
+  - question: "联系电话是多少？"
+    answer: "{回答}"
+  - question: "有什么房型？"
+    answer: "{回答}"
+  # 添加更多问答
+
+# 元数据
+metadata:
+  version: "1.0.0"
+  author: "德胧AI龙虾军团"
+  created: "2026-04-17"
