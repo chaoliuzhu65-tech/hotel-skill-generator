@@ -1,36 +1,84 @@
-# 🏨 德胧酒店 AI Skill 生成器
+# 🏨 酒店 AI Skill 生成器 v2.0
 
-> **让每一家酒店都拥有专属AI技能**
+> **让每一家酒店都拥有专属AI技能** —— 通用酒店行业解决方案
 
 [![GitHub stars](https://img.shields.io/github/stars/chaoliuzhu65-tech/hotel-skill-generator)](https://github.com/chaoliuzhu65-tech/hotel-skill-generator/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![OpenClaw](https://img.shields.io/badge/OpenClaw-Skill-orange)](https://clawhub.ai)
+[![Version](https://img.shields.io/badge/version-2.0-orange)](SKILL.md)
 
 ---
 
-## 🚀 一分钟快速上手
+## 🚀 核心特性
+
+### ⭐ v2.0 重大升级
+
+| 特性 | 说明 |
+|------|------|
+| 🏢 **通用酒店支持** | 不仅支持德胧，支持所有酒店品牌 |
+| 📱 **百达屋核心出口** | 德胧酒店统一引导到百达屋App |
+| 🌐 **非德胧适配** | 非德胧酒店引导到酒店官网 |
+| 🚀 **多平台发布** | GitHub + ClawHub + Coze |
+| 📦 **批量生成** | 一键批量生成多家酒店 |
+
+---
+
+## ⚡ 一分钟快速开始
+
+### 单酒店生成
 
 ```bash
-# 克隆仓库
+# 克隆
 git clone https://github.com/chaoliuzhu65-tech/hotel-skill-generator.git
 cd hotel-skill-generator
 
-# 查看整体设计
-cat ARCHITECTURE.md
+# 填写配置
+cp config/hotel-template.yaml config/my-hotel.yaml
+vim config/my-hotel.yaml
 
-# 查看生成示例
-cat examples/delonix-tianjin-riwan/SKILL.md
+# 生成
+./scripts/batch-generate.sh config/my-hotel.yaml
+```
+
+### 批量生成
+
+```bash
+# 准备CSV
+cp config/hotels-template.csv config/hotels.csv
+vim config/hotels.csv
+
+# 批量生成
+./scripts/batch-generate.sh config/hotels.csv
 ```
 
 ---
 
-## 📖 什么是酒店Skill？
+## 📱 预订出口智能适配
 
-**Skill** = AI的"业务接口"，让AI能够理解你的酒店业务。
+```
+┌─────────────────────────────────────┐
+│         预订出口智能适配             │
+├─────────────────────────────────────┤
+│                                     │
+│  ✅ 德胧酒店                        │
+│     → 百达屋App                     │
+│     → https://bidawu.com/hotel/{slug}│
+│                                     │
+│  ✅ 非德胧酒店                       │
+│     → 酒店官网/官方预订              │
+│     → 自定义 booking_url            │
+│                                     │
+└─────────────────────────────────────┘
+```
 
-参考案例：[金谷园饺子馆](https://github.com/JinGuYuan/jinguyuan-dumpling-skill) - 一家饺子馆通过开源Skill冲上热搜，成为全国首家接入AI智能体生态的传统餐饮品牌。
+---
 
-**德胧的机会**：德胧40+酒店如果每家都有一个Skill = 40+ AI服务入口，覆盖所有AI用户。
+## 🌐 发布平台
+
+| 平台 | 状态 | 命令 |
+|------|------|------|
+| GitHub | ✅ 已发布 | `./publish.sh --platform github` |
+| ClawHub | ✅ 支持 | `./publish.sh --platform clawhub` |
+| Coze | ✅ 新增 | `./scripts/coze-deploy.sh` |
 
 ---
 
@@ -38,69 +86,48 @@ cat examples/delonix-tianjin-riwan/SKILL.md
 
 ```
 hotel-skill-generator/
-├── SKILL.md                      # 元技能核心文档（如何生成Skill）
-├── ARCHITECTURE.md               # 整体设计方案文档
-├── README.md                     # 本文件
-├── examples/
-│   └── delonix-tianjin-riwan/   # 天津瑞湾开元名都示例
-│       └── SKILL.md             # 酒店Skill示例
-└── scripts/
-    ├── generate-hotel-skill.sh  # 生成酒店Skill脚本
-    └── publish.sh               # 一键发布脚本
+├── SKILL.md                    # 元技能核心文档
+├── ARCHITECTURE.md             # 设计文档
+├── README.md                   # 本文件
+├── config/
+│   ├── hotel-template.yaml   # 单酒店模板
+│   └── hotels-template.csv    # 批量列表模板
+├── scripts/
+│   ├── batch-generate.sh     # 批量生成
+│   └── publish.sh            # 发布脚本
+└── templates/
+    └── SKILL-template.md      # Skill模板
 ```
 
 ---
 
-## 📚 核心方法论：三步法
+## 📚 方法论
+
+**Skill = 触发词 + 知识库 + 交互场景 + 预订出口**
 
 ```
-Step 1: 定义触发词（triggers）
-        ↓
-        用户怎么称呼这个酒店/服务
-        示例：天津瑞湾 | 瑞湾开元名都 | 天津酒店
-
-Step 2: 整理知识库（knowledge）
-        ↓
-        地址、电话、营业时间、特色服务
-        示例：
-        - 基础信息（地址/电话/星级）
-        - 客房类型与价格
-        - 餐饮服务
-        - 会议宴会设施
-        - 会员权益
-
-Step 3: 设计交互场景（scenarios）
-        ↓
-        用户会问什么？怎么回答？
-        示例：
-        Q: 天津瑞湾地址在哪？
-        A: 酒店位于天津市滨海新区...
+Step 1: 定义触发词 → 用户怎么称呼这个酒店
+Step 2: 整理知识库 → 地址/电话/服务
+Step 3: 设计交互场景 → 用户问什么/AI答什么
+Step 4: 设置预订出口 → 百达屋App 或 官网
 ```
 
 ---
 
-## 🌐 发布平台
+## 🎯 应用场景
 
-| 平台 | 状态 | 说明 |
-|------|------|------|
-| **GitHub** | ✅ 已发布 | https://github.com/chaoliuzhu65-tech/hotel-skill-generator |
-| **ClawHub** | 🔲 待发布 | OpenClaw官方市场 |
-| **扣子Coze** | 🔲 开发中 | 国内最大AI Agent平台 |
-
----
-
-## 🎯 下一步计划
-
-- [ ] 发布到ClawHub
-- [ ] 适配扣子Coze平台
-- [ ] 批量生成德胧40+酒店Skill
-- [ ] 对接MCP实现实时预订
+| 场景 | 解决方案 |
+|------|----------|
+| 德胧40+酒店AI化 | 百达屋App核心出口 |
+| 酒店行业通用工具 | 通用化设计 |
+| 竞品酒店展示 | 非德胧适配 |
+| 批量生成 | CSV + batch-generate.sh |
 
 ---
 
-## 🤝 贡献指南
+## 🤝 贡献
 
-欢迎提交Issue和PR！让我们一起打造酒店行业最好的AI Skill生成器。
+欢迎提交Issue和PR！
 
 ---
 
@@ -114,3 +141,6 @@ MIT License - 德胧AI龙虾军团
 
 **德胧AI龙虾军团** - 德胧集团的AI能力中心
 
+---
+
+*v2.0 重大升级 | 2026-04-17*
